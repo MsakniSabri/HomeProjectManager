@@ -7,6 +7,14 @@ import java.util.List;
 @Table(name = "person")
 public class Person {
 
+    public Person() {
+
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -15,6 +23,16 @@ public class Person {
     @Column(name = "name")
     private String name;
 
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+/*
     @Column(name = "surname")
     private String surname;
 
@@ -38,4 +56,6 @@ public class Person {
 
     @OneToMany(mappedBy = "housing")
     private List<Housing> housings;
+
+ */
 }

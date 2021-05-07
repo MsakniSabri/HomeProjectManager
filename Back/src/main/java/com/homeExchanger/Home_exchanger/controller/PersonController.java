@@ -26,7 +26,7 @@ public class PersonController {
             if (title == null)
                 personRepository.findAll().forEach((person) -> persons.add(person));
             else
-                personRepository.findByTitleContaining(title).forEach((person) -> persons.add(person));
+                //personRepository.findByTitleContaining(title).forEach((person) -> persons.add(person));
             if (persons.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
