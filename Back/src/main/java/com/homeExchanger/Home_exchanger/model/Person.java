@@ -10,7 +10,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -37,5 +37,8 @@ public class Person {
     private String password;
 
     @OneToMany(mappedBy = "housing")
+    @JoinColumn(name = "housing_id")
     private List<Housing> housings;
+
+
 }
