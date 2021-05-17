@@ -1,3 +1,4 @@
+/*
 package com.homeExchanger.Home_exchanger.model;
 
 import javax.persistence.*;
@@ -5,6 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "housing")
 public class Housing {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,4 +20,6 @@ public class Housing {
 
     @Column(name = "additonal Data")
     private String additional_data;
+
 }
+*/
