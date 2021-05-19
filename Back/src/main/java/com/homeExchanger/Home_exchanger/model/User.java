@@ -1,6 +1,5 @@
 package com.homeExchanger.Home_exchanger.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
@@ -8,19 +7,28 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long user_id;
 
-    private String firstName;
+    private String name;
 
-    private String lastName;
+    private String surname;
 
-    private String email;
+    private String emailAddress;
 
-    @OneToMany
-    private List<House> house;
+    private String phoneNumber;
+
+    private String profilePictureAddress;
+
+    private String birthdate;
+
+    private String globalInformation;
+
+    private boolean isAdmin;
+
+    private String password;
 }

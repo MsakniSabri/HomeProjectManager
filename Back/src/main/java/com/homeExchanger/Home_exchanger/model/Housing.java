@@ -8,12 +8,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class House {
+@Table(name = "housing")
+public class Housing {
 
     @Id
     @GeneratedValue
-    private String id;
-    private String title;
+    private long housing_id;
+
+    private String address;
+
+    private int livingSpace;
+
     private String description;
 
     @ManyToOne
