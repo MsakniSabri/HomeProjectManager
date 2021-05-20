@@ -14,4 +14,8 @@ public class Constraint {
     private Long constraint_id;
 
     private String constraint;
+
+    @ManyToOne
+    @JoinColumn(name="housing_id", nullable = false)
+    private Housing housing;
 }

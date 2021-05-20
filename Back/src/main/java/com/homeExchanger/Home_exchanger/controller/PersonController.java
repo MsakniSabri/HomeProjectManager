@@ -26,15 +26,15 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public ResponseEntity<List<Person>> getAllPersons(@RequestParam(required = false) String lastName) {
+    public ResponseEntity<List<Person>> getAllPersons(@RequestParam(required = false) String surname) {
         try {
             System.out.println("Get all persons");
             List<Person> persons = new ArrayList<>();
 
-            if (lastName == null)
+            if (surname == null)
                 personRepository.findAll().forEach(persons::add);
             else
-                personRepository.findBySurname(lastName).forEach(persons::add);
+                personRepository.findBySurname(surname).forEach(persons::add);
 
             if(persons.isEmpty()) {
                 System.out.println("No content");
@@ -46,7 +46,7 @@ public class PersonController {
         }
     }
 
-    @GetMapping("/persons/{id}")
+    @GetMapping("/person/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
         Optional<Person> personData = personRepository.findById(id);
         System.out.println("Get person with id : " + id);
@@ -57,9 +57,9 @@ public class PersonController {
         }
     }
 
-    @GetMapping("/persons/{email_address}")
-    public ResponseEntity<Person> getPersonByEmail_address(@PathVariable("email_address") Long emailAddress) {
-        Optional<Person> personData = personRepository.findByEmailAddress("email_address");
+    @GetMapping("/person/email/{emailAddress}")
+    public ResponseEntity<Person> getPersonByEmailAddress(@PathVariable("emailAddress") String emailAddress) {
+        Optional<Person> personData = personRepository.findByEmailAddress(emailAddress);
         System.out.println("Get person with emailAddress : " + emailAddress);
         if (personData.isPresent()) {
             return new ResponseEntity<>(personData.get(), HttpStatus.OK);
@@ -75,6 +75,7 @@ public class PersonController {
             Person newPerson = new Person();
             newPerson.setName(person.getName());
             newPerson.setSurname(person.getSurname());
+            System.out.println(person.getEmailAddress());
             newPerson.setEmailAddress(person.getEmailAddress());
 
             Person _person = personRepository.save(newPerson);
@@ -99,9 +100,10 @@ public class PersonController {
         }
     }
 
-    @DeleteMapping("/persons/{id}")
+    @DeleteMapping("/person/{id}")
     public ResponseEntity<HttpStatus> deletePerson(@PathVariable("id") Long id){
         try {
+            System.out.println("Delete person :" + id);
             personRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
