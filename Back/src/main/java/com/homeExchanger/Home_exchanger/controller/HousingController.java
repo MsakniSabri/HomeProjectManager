@@ -1,7 +1,9 @@
 package com.homeExchanger.Home_exchanger.controller;
 
 import com.homeExchanger.Home_exchanger.model.Housing;
+import com.homeExchanger.Home_exchanger.model.Person;
 import com.homeExchanger.Home_exchanger.repository.HousingRepository;
+import com.homeExchanger.Home_exchanger.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,8 @@ public class HousingController {
     @Autowired
     HousingRepository housingRepository;
 
-    @GetMapping("/")
-    public ResponseEntity<HttpStatus> connexion(){
-        System.out.println("You are connected");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    @Autowired
+    PersonRepository personRepository;
 
     @GetMapping("/housings")
     public ResponseEntity<List<Housing>> getAllHousings(@RequestParam(required = false) String title, @RequestParam(required = false) Boolean isAvailable) {
@@ -61,28 +60,45 @@ public class HousingController {
         }
     }
 
-    @PostMapping("/housings")
-    public ResponseEntity<Housing> createHousing(@RequestBody Housing housing){
-        try{
-            System.out.println("Create a house");
-            Housing newHousing = new Housing();
-            newHousing.setAddress(housing.getAddress());
-            newHousing.setTitle(housing.getTitle());
-            newHousing.setLivingSpace(housing.getLivingSpace());
-            newHousing.setDescription(housing.getDescription());
-            newHousing.setAvailable(true);
+    @GetMapping("/persons/{personId}/housings")
+    public ResponseEntity<List<Housing>> getAllHousingsByPersonId(@PathVariable (value = "personId") Long personId){
+        Optional<Person> personData = personRepository.findById(personId);
+        System.out.println("Get housings of the user : " + personId);
+        if(personData.isPresent()){
+            List<Housing> housings = new ArrayList<>();
+            housingRepository.findByPerson(personData.get()).forEach(housings::add);
+            return new ResponseEntity<>(housings, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-            Housing _housing = housingRepository.save(newHousing);
-            return new ResponseEntity<>(_housing, HttpStatus.CREATED);
+    @PostMapping("/persons/{personId}/housings")
+    public ResponseEntity<Housing> createHousing(@PathVariable Long personId, @RequestBody Housing housing){
+        try{
+            Optional<Person> personData = personRepository.findById(personId);
+            System.out.println("Create a housing for the user : " + personId);
+            if(personData.isPresent()) {
+                Housing newHousing = new Housing(personData.get());
+                newHousing.setAddress(housing.getAddress());
+                newHousing.setTitle(housing.getTitle());
+                newHousing.setLivingSpace(housing.getLivingSpace());
+                newHousing.setDescription(housing.getDescription());
+                newHousing.setAvailable(true);
+                Housing _housing = housingRepository.save(newHousing);
+                return new ResponseEntity<>(_housing, HttpStatus.CREATED);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/housings")
-    public ResponseEntity<Housing> updateHousing(@PathVariable("id") Long id, @RequestBody Housing housing) {
-        Optional<Housing> housingData = housingRepository.findById(id);
+    @PutMapping("/housings{housingId}")
+    public ResponseEntity<Housing> updateHousing(@PathVariable Long housingId, @RequestBody Housing housing) {
 
+        Optional<Housing> housingData = housingRepository.findById(housingId);
         if(housingData.isPresent()) {
             Housing _housing = housingData.get();
             _housing.setAddress(housing.getAddress());

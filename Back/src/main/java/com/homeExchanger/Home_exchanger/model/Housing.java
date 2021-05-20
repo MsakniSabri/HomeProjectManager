@@ -24,4 +24,12 @@ public class Housing {
     private String description;
 
     private Boolean available;
+
+    @ManyToOne
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
+
+    public Housing(Person person) {
+        this.person = person;
+    }
 }
