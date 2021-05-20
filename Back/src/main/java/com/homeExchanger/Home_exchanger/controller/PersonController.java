@@ -1,7 +1,7 @@
 package com.homeExchanger.Home_exchanger.controller;
 
 import com.homeExchanger.Home_exchanger.model.Person;
-import com.homeExchanger.Home_exchanger.repository.UserRepository;
+import com.homeExchanger.Home_exchanger.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class PersonController {
 
     @Autowired
-    UserRepository userRepository;
+    PersonRepository personRepository;
 
     @GetMapping("/")
     public ResponseEntity<HttpStatus> connexion(){
@@ -25,94 +25,94 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<Person>> getAllUsers(@RequestParam(required = false) String lastName) {
+    @GetMapping("/persons")
+    public ResponseEntity<List<Person>> getAllPersons(@RequestParam(required = false) String lastName) {
         try {
-            System.out.println("Get all users");
-            List<Person> users = new ArrayList<>();
+            System.out.println("Get all persons");
+            List<Person> persons = new ArrayList<>();
 
             if (lastName == null)
-                userRepository.findAll().forEach(users::add);
+                personRepository.findAll().forEach(persons::add);
             else
-                userRepository.findBySurname(lastName).forEach(users::add);
+                personRepository.findBySurname(lastName).forEach(persons::add);
 
-            if(users.isEmpty()) {
-                System.out.println("no content");
+            if(persons.isEmpty()) {
+                System.out.println("No content");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(users, HttpStatus.OK);
+            return new ResponseEntity<>(persons, HttpStatus.OK);
         } catch ( Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<Person> getUserById(@PathVariable("id") Long id) {
-        Optional<Person> userData = userRepository.findById(id);
-        System.out.println("Get user with id : " + id);
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+    @GetMapping("/persons/{id}")
+    public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
+        Optional<Person> personData = personRepository.findById(id);
+        System.out.println("Get person with id : " + id);
+        if (personData.isPresent()) {
+            return new ResponseEntity<>(personData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    /*@GetMapping("/users/findByEmail/{email_address}")
-    public ResponseEntity<Person> getUserByEmail_address(@PathVariable("email_address") Long emailAddress) {
-        Optional<Person> userData = userRepository.findByEmail_address("email_address");
-        System.out.println("Get user with emailAddress : " + emailAddress);
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+    @GetMapping("/persons/{email_address}")
+    public ResponseEntity<Person> getPersonByEmail_address(@PathVariable("email_address") Long emailAddress) {
+        Optional<Person> personData = personRepository.findByEmailAddress("email_address");
+        System.out.println("Get person with emailAddress : " + emailAddress);
+        if (personData.isPresent()) {
+            return new ResponseEntity<>(personData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
-    @PostMapping("/users")
-    public ResponseEntity<Person> createUser(@RequestBody Person user) {
+    @PostMapping("/persons")
+    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         try{
-            System.out.println("Modify a user");
-            Person newUser = new Person();
-            newUser.setName(user.getName());
-            newUser.setSurname(user.getSurname());
-            newUser.setEmailAddress(user.getEmailAddress());
+            System.out.println("Create a person");
+            Person newPerson = new Person();
+            newPerson.setName(person.getName());
+            newPerson.setSurname(person.getSurname());
+            newPerson.setEmailAddress(person.getEmailAddress());
 
-            Person _user = userRepository.save(newUser);
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            Person _person = personRepository.save(newPerson);
+            return new ResponseEntity<>(_person, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<Person> updateUser(@PathVariable("id") Long id, @RequestBody Person user) {
-        Optional<Person> userData = userRepository.findById(id);
+    @PutMapping("/persons/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person person) {
+        Optional<Person> personData = personRepository.findById(id);
 
-        if(userData.isPresent()) {
-            Person _user = userData.get();
-            _user.setSurname(user.getSurname());
-            _user.setName(user.getName());
-            _user.setEmailAddress(user.getEmailAddress());
-            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+        if(personData.isPresent()) {
+            Person _person = personData.get();
+            _person.setSurname(person.getSurname());
+            _person.setName(person.getName());
+            _person.setEmailAddress(person.getEmailAddress());
+            return new ResponseEntity<>(personRepository.save(_person), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id){
+    @DeleteMapping("/persons/{id}")
+    public ResponseEntity<HttpStatus> deletePerson(@PathVariable("id") Long id){
         try {
-            userRepository.deleteById(id);
+            personRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/users")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
+    @DeleteMapping("/persons")
+    public ResponseEntity<HttpStatus> deleteAllPersons() {
         try {
-            userRepository.deleteAll();
+            personRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -15,9 +15,13 @@ public class Housing {
     @GeneratedValue
     private long housing_id;
 
+    private String title;
+
     private String address;
 
     private int livingSpace;
 
     private String description;
+
+    private Boolean available;
 }
