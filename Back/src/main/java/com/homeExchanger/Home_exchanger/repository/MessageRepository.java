@@ -11,4 +11,5 @@ import java.util.List;
 public interface MessageRepository  extends JpaRepository<Message, Long> {
     List<Message> findByMessage(String message);
     List<Message> findByConversation(Conversation conversation);
+    List<Message> findByPerson(Person person);
 }

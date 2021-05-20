@@ -69,11 +69,11 @@ public class MessageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
-    @GetMapping("/persons/{personId}/messages")
+
+    @GetMapping("/conversations/{conversationId}/messages")
     public ResponseEntity<List<Message>> getAllMessagesByConversationId(@PathVariable (value = "conversationId") Long conversationId){
         Optional<Conversation> conversationData = conversationRepository.findById(conversationId);
-        System.out.println("Get messages from this user : " + conversationId);
+        System.out.println("Get messages from this conversation : " + conversationId);
         if(conversationData.isPresent()){
             List<Message> messages = new ArrayList<>();
             messageRepository.findByConversation(conversationData.get()).forEach(messages::add);
@@ -83,11 +83,24 @@ public class MessageController {
         }
     }
 
-    @PostMapping("/persons/{personId}/messages")
+    @GetMapping("/persons/{personId}/messages")
+    public ResponseEntity<List<Message>> getAllMessagesByPersonId(@PathVariable (value = "personId") Long personId){
+        Optional<Person> personData = personRepository.findById(personId);
+        System.out.println("Get messages from this person : " + personId);
+        if(personData.isPresent()){
+            List<Message> messages = new ArrayList<>();
+            messageRepository.findByPerson(personData.get()).forEach(messages::add);
+            return new ResponseEntity<>(messages, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/conversations/{conversationId}/messages")
     public ResponseEntity<Message> createMessage(@PathVariable Long conversationId, @RequestBody Message message){
         try{
             Optional<Conversation> conversationData = conversationRepository.findById(conversationId);
-            System.out.println("Create a message from this user : " + conversationId);
+            System.out.println("Create a message for this conversation : " + conversationId);
             if(conversationData.isPresent()) {
                 Message newMessage = new Message(conversationData.get());
                 newMessage.setMessage(message.getMessage());

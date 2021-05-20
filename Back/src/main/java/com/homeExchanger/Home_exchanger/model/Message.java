@@ -16,6 +16,10 @@ public class Message {
     private String message;
 
     @ManyToOne
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
+
+    @ManyToOne
     @JoinColumn(name="conversation_id", nullable = false)
     private Conversation conversation;
 
