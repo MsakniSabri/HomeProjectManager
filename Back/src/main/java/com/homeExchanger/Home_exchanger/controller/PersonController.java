@@ -1,6 +1,6 @@
 package com.homeExchanger.Home_exchanger.controller;
 
-import com.homeExchanger.Home_exchanger.model.User;
+import com.homeExchanger.Home_exchanger.model.Person;
 import com.homeExchanger.Home_exchanger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class PersonController {
 
     @Autowired
     UserRepository userRepository;
@@ -26,15 +26,15 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String lastName) {
+    public ResponseEntity<List<Person>> getAllUsers(@RequestParam(required = false) String lastName) {
         try {
             System.out.println("Get all users");
-            List<User> users = new ArrayList<>();
+            List<Person> users = new ArrayList<>();
 
             if (lastName == null)
                 userRepository.findAll().forEach(users::add);
             else
-                userRepository.findByLastName(lastName).forEach(users::add);
+                userRepository.findBySurname(lastName).forEach(users::add);
 
             if(users.isEmpty()) {
                 System.out.println("no content");
@@ -47,8 +47,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        Optional<User> userData = userRepository.findById(id);
+    public ResponseEntity<Person> getUserById(@PathVariable("id") Long id) {
+        Optional<Person> userData = userRepository.findById(id);
         System.out.println("Get user with id : " + id);
         if (userData.isPresent()) {
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
@@ -57,16 +57,27 @@ public class UserController {
         }
     }
 
+    /*@GetMapping("/users/findByEmail/{email_address}")
+    public ResponseEntity<Person> getUserByEmail_address(@PathVariable("email_address") Long emailAddress) {
+        Optional<Person> userData = userRepository.findByEmail_address("email_address");
+        System.out.println("Get user with emailAddress : " + emailAddress);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }*/
+
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<Person> createUser(@RequestBody Person user) {
         try{
             System.out.println("Modify a user");
-            User newUser = new User();
-            newUser.setFirstName(user.getFirstName());
-            newUser.setLastName(user.getLastName());
-            newUser.setEmail(user.getEmail());
+            Person newUser = new Person();
+            newUser.setName(user.getName());
+            newUser.setSurname(user.getSurname());
+            newUser.setEmailAddress(user.getEmailAddress());
 
-            User _user = userRepository.save(newUser);
+            Person _user = userRepository.save(newUser);
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -74,14 +85,14 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-        Optional<User> userData = userRepository.findById(id);
+    public ResponseEntity<Person> updateUser(@PathVariable("id") Long id, @RequestBody Person user) {
+        Optional<Person> userData = userRepository.findById(id);
 
         if(userData.isPresent()) {
-            User _user = userData.get();
-            _user.setLastName(user.getLastName());
-            _user.setFirstName(user.getFirstName());
-            _user.setEmail(user.getEmail());
+            Person _user = userData.get();
+            _user.setSurname(user.getSurname());
+            _user.setName(user.getName());
+            _user.setEmailAddress(user.getEmailAddress());
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -11,5 +11,4 @@ public class HomeExchangerApplication {
 		ApplicationContext ctx =
 		SpringApplication.run(HomeExchangerApplication.class, args);
 	}
-
 }

@@ -20,7 +20,4 @@ public class Housing {
     private int livingSpace;
 
     private String description;
-
-    @ManyToOne
-    private User user;
 }

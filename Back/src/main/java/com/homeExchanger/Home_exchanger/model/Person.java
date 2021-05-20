@@ -2,17 +2,16 @@ package com.homeExchanger.Home_exchanger.model;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "person")
+public class Person {
 
     @Id
     @GeneratedValue
-    private Long user_id;
+    private Long person_id;
 
     private String name;
 
