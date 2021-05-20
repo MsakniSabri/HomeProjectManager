@@ -14,4 +14,8 @@ public class Image {
     private Long image_id;
 
     private String imageAddress;
+
+    @ManyToOne
+    @JoinColumn(name="housing_id", nullable = false)
+    private Housing housing;
 }

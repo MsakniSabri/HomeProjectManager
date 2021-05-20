@@ -2,6 +2,8 @@ package com.homeExchanger.Home_exchanger.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +32,10 @@ public class Person {
     private boolean isAdmin;
 
     private String password;
+
+    @OneToMany( targetEntity=Housing.class, mappedBy="person" )
+    private List<Housing> housings = new ArrayList<>();
+
+    @OneToMany( targetEntity=Conversation.class, mappedBy="person" )
+    private List<Conversation> conversations = new ArrayList<>();
 }

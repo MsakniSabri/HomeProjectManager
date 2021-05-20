@@ -2,6 +2,8 @@ package com.homeExchanger.Home_exchanger.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +26,14 @@ public class Housing {
     private String description;
 
     private Boolean available;
+
+    @ManyToOne
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
+
+    @OneToMany( targetEntity=Constraint.class, mappedBy="housing" )
+    private List<Constraint> constraints = new ArrayList<>();
+
+    @OneToMany( targetEntity=Image.class, mappedBy="housing" )
+    private List<Image> images = new ArrayList<>();
 }
