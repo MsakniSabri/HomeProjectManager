@@ -18,4 +18,8 @@ public class Message {
     @ManyToOne
     @JoinColumn(name="conversation_id", nullable = false)
     private Conversation conversation;
+
+    public Message(Conversation conversation) {
+        this.conversation = conversation;
+    }
 }
