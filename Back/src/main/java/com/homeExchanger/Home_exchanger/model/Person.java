@@ -33,4 +33,10 @@ public class Person {
     private boolean isAdmin;
 
     private String password;
+
+    @OneToMany( targetEntity=Housing.class, mappedBy="person" )
+    private List<Housing> housings = new ArrayList<>();
+
+    @OneToMany( targetEntity=Conversation.class, mappedBy="person" )
+    private List<Conversation> conversations = new ArrayList<>();
 }
