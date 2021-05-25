@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val userService: UserService) {
 
     @GetMapping("/{id}")
-    fun getUserById(@PathVariable id: Long): UserDto {
-        return userService.getById(id);
-    }
+    fun getUserById(@PathVariable id: Long): UserDto = userService.getById(id);
+
 }
