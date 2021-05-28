@@ -8,7 +8,9 @@ data class HousingDto(
     val userId: Long,
     //ajout
     val
-    constraints: List<ConstraintDto>
+    constraints: List<ConstraintDto>,
+    //ajout
+    val images: List<ImageDto>
 )
 
 fun HousingDto.toDao() = HousingDao(
@@ -16,7 +18,9 @@ fun HousingDto.toDao() = HousingDao(
     description = description,
     user = null,
     //ajout
-    constraints = constraints.toDao()
+    constraints = constraints.toDao(),
+    //ajout
+    images = images.toDao()
 )
 
 fun List<HousingDto>.toDao() = map { it.toDao() }
