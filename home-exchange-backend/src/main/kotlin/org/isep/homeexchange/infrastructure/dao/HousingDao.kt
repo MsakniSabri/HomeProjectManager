@@ -19,7 +19,13 @@ data class HousingDao(
 
     //ajout 2 lignes suivantes
     @OneToMany(mappedBy = "id", orphanRemoval = true)
-    var constraints: List<ConstraintDao>
+    var constraints: List<ConstraintDao>,
+
+    //ajout 2 lignes suivantes
+    @OneToMany(mappedBy = "id", orphanRemoval = true)
+    var images: List<ImageDao>
+
+
 )
 
 fun HousingDao.toDto() = HousingDto(
@@ -27,7 +33,9 @@ fun HousingDao.toDto() = HousingDto(
     description,
     userId = user!!.id,
     // ajout de la ligne suivante
-    constraints = constraints.toDto()
+    constraints = constraints.toDto(),
+    // ajout de la ligne suivante
+    images = images.toDto()
 )
 
 fun List<HousingDao>.toDto() = map { it.toDto() }
