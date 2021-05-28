@@ -4,13 +4,13 @@ import org.isep.homeexchange.infrastructure.dao.ConstraintDao
 
 data class ConstraintDto(
     val id: Long,
-    val constraint: String,
+    val description: String,
     val housingId: Long,
 )
 
 fun ConstraintDto.toDao() = ConstraintDao(
     id = id,
-    constraint = constraint,
+    description = description,
     housing = null
 )
 
