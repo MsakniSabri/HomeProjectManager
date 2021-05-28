@@ -1,7 +1,6 @@
 package org.isep.homeexchange.core.services
 
 import org.isep.homeexchange.core.dto.HousingDto
-import org.isep.homeexchange.core.dto.UserDto
 
 interface HousingService {
     fun create(dto: HousingDto): HousingDto

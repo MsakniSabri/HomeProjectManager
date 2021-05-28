@@ -52,8 +52,8 @@ class HousingServiceImpl(
     }
 
     override fun updateHousing(dto: HousingDto): HousingDto {
-        //A voir si on utilise create a la place
-        return dto
+
+        return create(dto)
     }
 
     override fun deleteById(id: Long) {
