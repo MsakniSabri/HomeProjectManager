@@ -15,13 +15,19 @@ data class HousingDao(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: UserDao?
+    var user: UserDao?,
+
+    //ajout 2 lignes suivantes
+    @OneToMany(mappedBy = "id", orphanRemoval = true)
+    var constraints: List<ConstraintDao>
 )
 
 fun HousingDao.toDto() = HousingDto(
     id,
     description,
-    userId = user!!.id
+    userId = user!!.id,
+    // ajout de la ligne suivante
+    constraints = constraints.toDto()
 )
 
 fun List<HousingDao>.toDto() = map { it.toDto() }

@@ -32,7 +32,7 @@ class UserDao(
     var admin: Boolean,
 
     @OneToMany(mappedBy = "id", orphanRemoval = true)
-    var housings: List<HousingDao>,
+    var housings: List<HousingDao>
 
     )
 

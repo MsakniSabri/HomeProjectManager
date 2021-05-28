@@ -11,7 +11,7 @@ data class ConstraintDao(
         var id: Long = 0,
 
         @Column
-        var constraint: String,
+        var description: String,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
@@ -20,7 +20,7 @@ data class ConstraintDao(
 
 fun ConstraintDao.toDto() = ConstraintDto(
         id,
-        constraint,
+        description,
         housingId = housing!!.id
 )
 
