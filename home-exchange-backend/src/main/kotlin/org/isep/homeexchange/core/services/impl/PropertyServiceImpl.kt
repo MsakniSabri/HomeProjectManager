@@ -14,8 +14,8 @@ class PropertyServiceImpl(
     private val housingService: HousingService,
 ) : PropertyService {
 
-    override fun create(dto: PropertyDto): PropertyDto {
-        val housingDto = housingService.getById(dto.housingId)
+    override fun create(id: Long, dto: PropertyDto): PropertyDto {
+        val housingDto = housingService.getById(id)
         val propertyDao = dto.toDao()
         propertyDao.housing = housingDto.toDao()
 

@@ -1,12 +1,17 @@
 package org.isep.homeexchange.ws.controllers
 
 import org.isep.homeexchange.core.dto.HousingDto
+import org.isep.homeexchange.core.dto.PropertyDto
 import org.isep.homeexchange.core.services.HousingService
+import org.isep.homeexchange.core.services.PropertyService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("housings")
-class HousingController(private val housingService: HousingService) {
+class HousingController(
+    private val housingService: HousingService,
+    private val propertyService: PropertyService)
+{
 
     @PostMapping //✔️
     fun createHousing(@RequestBody dto: HousingDto): HousingDto = housingService.create(dto)
@@ -28,4 +33,7 @@ class HousingController(private val housingService: HousingService) {
 
     @DeleteMapping //✔️
     fun deleteAllHousing() = housingService.deleteAll()
+
+    @PostMapping("/{id}/property")
+    fun addProperty(@PathVariable id: Long, @RequestBody dto: PropertyDto) = propertyService.create(id, dto)
 }

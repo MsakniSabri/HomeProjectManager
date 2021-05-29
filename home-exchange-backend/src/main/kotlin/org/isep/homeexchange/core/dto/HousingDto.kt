@@ -6,20 +6,16 @@ data class HousingDto(
     val id: Long,
     val description: String,
     val userId: Long,
-    //ajout
-    val
-    properties: List<PropertyDto>,
-    //ajout
+    val properties: List<PropertyDto>?,
+    val user: UserDto,
     val images: List<ImageDto>
 )
 
 fun HousingDto.toDao() = HousingDao(
     id = id,
     description = description,
-    user = null,
-    //ajout
-    properties = properties.toDao(),
-    //ajout
+    user = user.toDao(),
+    properties = properties!!.toDao(),
     images = images.toDao(),
     userId = userId
 )

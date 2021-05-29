@@ -15,13 +15,12 @@ data class PropertyDao(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
-        var housing: HousingDao
+        var housing: HousingDao?
 )
 
 fun PropertyDao.toDto() = PropertyDto(
         id,
         description,
-        housingId = housing.id
 )
 
 fun List<PropertyDao>.toDto() = map { it.toDto() }

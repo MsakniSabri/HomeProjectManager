@@ -37,7 +37,6 @@ class HousingServiceImpl(
         return housing.get().toDto()
     }
 
-    //Add by Benji
     override fun getByUsers(user_id: Long): List<HousingDto> {
         val housingsDao: List<HousingDao> = housingRepository.findByUserId(user_id)
 

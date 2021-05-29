@@ -5,7 +5,6 @@ import org.isep.homeexchange.infrastructure.dao.PropertyDao
 data class PropertyDto(
     val id: Long,
     val description: String,
-    val housingId: Long,
 )
 
 fun PropertyDto.toDao() = PropertyDao(
