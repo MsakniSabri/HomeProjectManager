@@ -20,7 +20,8 @@ fun HousingDto.toDao() = HousingDao(
     //ajout
     constraints = constraints.toDao(),
     //ajout
-    images = images.toDao()
+    images = images.toDao(),
+    userId = userId
 )
 
 fun List<HousingDto>.toDao() = map { it.toDao() }

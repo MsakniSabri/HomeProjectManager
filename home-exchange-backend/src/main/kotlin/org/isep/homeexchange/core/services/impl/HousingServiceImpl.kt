@@ -1,7 +1,6 @@
 package org.isep.homeexchange.core.services.impl
 
 import org.isep.homeexchange.core.dto.HousingDto
-import org.isep.homeexchange.core.dto.UserDto
 import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.HousingService
 import org.isep.homeexchange.core.services.UserService
@@ -40,9 +39,9 @@ class HousingServiceImpl(
 
     //Add by Benji
     override fun getByUsers(user_id: Long): List<HousingDto> {
-        var userDto: UserDto = userService.getById(user_id)
+        val housingsDao: List<HousingDao> = housingRepository.findByUserId(user_id)
 
-        return userDto.housings
+        return housingsDao.toDto()
     }
 
     override fun getAll(): List<HousingDto> {
@@ -69,9 +68,4 @@ class HousingServiceImpl(
     override fun deleteAll() {
         housingRepository.deleteAll()
     }
-
-
-    //
-
-
 }

@@ -1,6 +1,6 @@
 package org.isep.homeexchange.ws.controllers
 
-import org.isep.homeexchange.core.dto.HousingDto
+import org.isep.homeexchange.core.dto.CreateUserDto
 import org.isep.homeexchange.core.dto.UserDto
 import org.isep.homeexchange.core.services.UserService
 import org.springframework.web.bind.annotation.*
@@ -13,7 +13,9 @@ class UserController(private val userService: UserService) {
     fun getUserById(@PathVariable id: Long): UserDto = userService.getById(id)
 
     @PostMapping //✔️
-    fun createUSer(@RequestBody dto: UserDto): UserDto = userService.create(dto, "123")
+    fun createUSer(@RequestBody createUserDto: CreateUserDto): UserDto {
+        return userService.create(createUserDto)
+    }
 
     @PutMapping //✔️
     fun updateUser(@RequestBody dto: UserDto): UserDto = userService.updateUser(dto, "245")

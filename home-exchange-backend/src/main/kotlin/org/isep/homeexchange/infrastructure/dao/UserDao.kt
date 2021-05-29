@@ -31,7 +31,7 @@ class UserDao(
     @Column
     var admin: Boolean,
 
-    @OneToMany(mappedBy = "id", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     var housings: List<HousingDao>
 
     )

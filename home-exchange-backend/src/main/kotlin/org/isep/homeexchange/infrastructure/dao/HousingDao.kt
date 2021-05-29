@@ -23,8 +23,10 @@ data class HousingDao(
 
     //ajout 2 lignes suivantes
     @OneToMany(mappedBy = "id", orphanRemoval = true)
-    var images: List<ImageDao>
+    var images: List<ImageDao>,
 
+    @Column(name = "user_id", insertable = false, updatable = false)
+    var userId: Long
 
 )
 
