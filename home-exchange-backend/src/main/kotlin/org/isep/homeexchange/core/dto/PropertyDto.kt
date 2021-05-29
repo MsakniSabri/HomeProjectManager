@@ -8,7 +8,7 @@ data class PropertyDto(
 )
 //test
 fun PropertyDto.toDao() = PropertyDao(
-    id = 2,
+    id = id,
     description = description,
     housing = null
 )
