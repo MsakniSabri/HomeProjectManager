@@ -8,7 +8,7 @@ data class HousingDto(
     val userId: Long,
     //ajout
     val
-    constraints: List<ConstraintDto>,
+    properties: List<PropertyDto>,
     //ajout
     val images: List<ImageDto>
 )
@@ -18,7 +18,7 @@ fun HousingDto.toDao() = HousingDao(
     description = description,
     user = null,
     //ajout
-    constraints = constraints.toDao(),
+    properties = properties.toDao(),
     //ajout
     images = images.toDao(),
     userId = userId

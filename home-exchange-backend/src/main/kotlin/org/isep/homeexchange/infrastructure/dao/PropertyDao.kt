@@ -1,11 +1,11 @@
 package org.isep.homeexchange.infrastructure.dao
 
-import org.isep.homeexchange.core.dto.ConstraintDto
+import org.isep.homeexchange.core.dto.PropertyDto
 import javax.persistence.*
 
 @Entity
-@Table(name = "constraints")
-data class ConstraintDao(
+@Table(name = "properties")
+data class PropertyDao(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0,
@@ -15,13 +15,13 @@ data class ConstraintDao(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
-        var housing: HousingDao?
+        var housing: HousingDao
 )
 
-fun ConstraintDao.toDto() = ConstraintDto(
+fun PropertyDao.toDto() = PropertyDto(
         id,
         description,
-        housingId = housing!!.id
+        housingId = housing.id
 )
 
-fun List<ConstraintDao>.toDto() = map { it.toDto() }
+fun List<PropertyDao>.toDto() = map { it.toDto() }
