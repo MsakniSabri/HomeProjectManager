@@ -18,7 +18,7 @@ data class UserDto(
 fun UserDto.toDao(): UserDao = UserDao(
     id = id,
     email = email,
-    password = null,
+    password = "",
     phoneNumber = phoneNumber,
     firstname = firstname,
     lastname = lastname,
