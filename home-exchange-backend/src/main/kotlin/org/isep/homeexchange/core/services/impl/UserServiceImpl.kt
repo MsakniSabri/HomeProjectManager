@@ -22,12 +22,12 @@ class UserServiceImpl(
 ) : UserService {
 
     override fun login(dto: LoginDto): Boolean {
-        return hashService.checkPassword(dto)
+        return hashService.verifyPassword(dto)
     }
 
     override fun create(dto: CreateUserDto): UserDto {
         val userDao = dto.toDao()
-        userDao.password = hashService.hashingPassword(dto.password)
+        userDao.password = hashService.hashPassword(dto.password)
 
         return userRepository.save(userDao).toUserDto()
     }
@@ -56,7 +56,7 @@ class UserServiceImpl(
         val userDao = dto.toDao()
 
         if(!password.isNullOrEmpty()){
-            userDao.password = hashService.hashingPassword(password)
+            userDao.password = hashService.hashPassword(password)
         }else{
             val user: Optional<UserDao> = userRepository.findById(userDao.id)
             if (user.isEmpty) {

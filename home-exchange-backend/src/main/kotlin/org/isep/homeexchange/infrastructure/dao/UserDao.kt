@@ -15,7 +15,7 @@ class UserDao(
     var email: String,
 
     @Column(nullable = false)
-    var password: String,
+    var password: String?,
 
     @Column
     var phoneNumber: String?,
@@ -50,5 +50,5 @@ fun UserDao.toUserDto(): UserDto = UserDto(
 
 fun UserDao.toLoginDto(): LoginDto = LoginDto(
     email = email,
-    hashedPassword = password,
+    password = this!!.password,
 )

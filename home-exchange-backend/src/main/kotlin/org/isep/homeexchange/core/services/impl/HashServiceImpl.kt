@@ -11,13 +11,13 @@ class HashServiceImpl(
     private val userService: UserService,
 ): HashService{
 
-    override fun hashingPassword(password: String): String {
+    override fun hashPassword(password: String): String {
         return BCrypt.hashpw(password, BCrypt.gensalt(47))
     }
 
-    override fun checkPassword(dto: LoginDto): Boolean {
+    override fun verifyPassword(dto: LoginDto): Boolean {
         val userDto: LoginDto = userService.getByEmail(dto.email)
-        return BCrypt.checkpw(userDto.hashedPassword, dto.hashedPassword)
+        return BCrypt.checkpw(userDto.password, dto.password)
     }
 
 
