@@ -1,46 +1,25 @@
-import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Router, Switch } from "react-router";
-import { Link } from "react-router-dom";
+import './App.css';
 
-import AddUser from "./components/add-user.component";
-import User from "./components/user.component";
-import UserList from "./components/user-list.component";
-
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <a href="/users" className="navbar-brand">
-              bezKoder
-            </a>
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/users"} className="nav-link">
-                  Users
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/add"} className="nav-link">
-                  Add
-                </Link>
-              </li>
-            </div>
-          </nav>
-
-          <div className="container mt-3">
-            <Switch>
-              <Route exact path={["/", "/users"]} component={UserList} />
-              <Route exact path="/add" component={AddUser} />
-              <Route exact path="/users/:id" component={User} />
-            </Switch>
+function App() {
+  return (
+    <section className="App h-screen w-full flex justify-center items-center bg-green-500">
+      <div className="w-full max-w-md bg-gray-800" >
+        <form action="" className=" bg-white shadow-md rounded px-8 py-8 pt-8">
+          <div className="px-4 pb-4">
+            <label htmlFor="email" className="text-sm block font-bold  pb-2">EMAIL ADDRESS</label>
+            <input type="email" name="email" id="" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300 " placeholder="Johnbull@example.com" />
           </div>
-        </div>
-      </Router>
-    );
-  }
+          <div className="px-4 pb-4">
+            <label htmlFor="password" className="text-sm block font-bold pb-2">PASSWORD</label>
+            <input type="password" name="email" id="" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300" placeholder="Enter your password" />
+          </div>
+          <div>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Sign In</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
 }
 
 export default App;
