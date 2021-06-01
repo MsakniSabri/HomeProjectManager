@@ -18,10 +18,10 @@ data class ImageDao(
     var housing: HousingDao?
 )
 
-fun ImageDao.toDto() = ImageDto(
+fun ImageDao.toUserDto() = ImageDto(
     id,
     imageAddress,
     housingId = housing!!.id
 )
 
-fun List<ImageDao>.toDto() = map { it.toDto() }
+fun List<ImageDao>.toUserDto() = map { it.toUserDto() }
