@@ -1,5 +1,6 @@
 package org.isep.homeexchange.ws.controllers
 
+import org.isep.homeexchange.core.dto.CreateHousingDto
 import org.isep.homeexchange.core.dto.HousingDto
 import org.isep.homeexchange.core.dto.PropertyDto
 import org.isep.homeexchange.core.services.HousingService
@@ -14,7 +15,7 @@ class HousingController(
 {
 
     @PostMapping //✔️
-    fun createHousing(@RequestBody dto: HousingDto): HousingDto = housingService.create(dto)
+    fun createHousing(@RequestBody dto: CreateHousingDto): HousingDto = housingService.create(dto)
 
     @GetMapping("/{id}") //✔️
     fun getHousingById(@PathVariable id: Long): HousingDto = housingService.getById(id)

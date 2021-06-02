@@ -13,9 +13,12 @@ data class HousingDao(
     @Column
     var description: String,
 
+    @Column
+    var title: String,
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: UserDao,
+    var user: UserDao?,
 
     @OneToMany(mappedBy = "id", orphanRemoval = true)
     var properties: List<PropertyDao>,
@@ -31,8 +34,8 @@ data class HousingDao(
 fun HousingDao.toDto() = HousingDto(
     id,
     description,
+    title,
     userId = userId,
-    user = user.toDto(),
     properties = properties.toDto(),
     images = images.toDto(),
 )

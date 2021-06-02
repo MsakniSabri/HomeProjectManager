@@ -10,8 +10,7 @@ data class UserDto(
     val lastname: String,
     val profilePictureUrl: String?,
     val admin: Boolean,
-    val
-    housings: List<HousingDto>
+    val housings: List<HousingDto>,
 ) {
 }
 

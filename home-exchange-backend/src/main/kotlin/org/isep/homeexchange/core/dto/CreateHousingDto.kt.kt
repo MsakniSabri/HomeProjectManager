@@ -2,7 +2,7 @@ package org.isep.homeexchange.core.dto
 
 import org.isep.homeexchange.infrastructure.dao.HousingDao
 
-data class HousingDto(
+data class CreateHousingDto(
     val id: Long,
     val title: String,
     val description: String,
@@ -11,7 +11,7 @@ data class HousingDto(
     val images: List<ImageDto>
 )
 
-fun HousingDto.toDao() = HousingDao(
+fun CreateHousingDto.toDao() = HousingDao(
     id = id,
     description = description,
     title = title,
@@ -20,5 +20,3 @@ fun HousingDto.toDao() = HousingDao(
     images = images.toDao(),
     userId = userId
 )
-
-fun List<HousingDto>.toDao() = map { it.toDao() }
