@@ -14,7 +14,7 @@ const Booking = () => {
 
     return (
         <section className="App h-screen w-full flex justify-center items-center bg-green-100">
-            <div className="flex flex-col items-center justify-center w-screen max-w-screen-2xl h-4/5 rounded-md bg-white pb-8" >
+            <div className="mt-16 flex flex-col items-center justify-center w-10/12 max-w-screen-2xl h-4/5 rounded-md bg-white pb-8" >
                 <h1 className="text-5xl mb-8 mt-4">Booking</h1>
                 <div className="w-11/12 relative text-gray-600 h-5/6">
                     <div className="bg-white sticky top-0 p-2">
