@@ -17,9 +17,9 @@ class ExchangedServiceImpl(
     private val userService: UserService
 ) : ExchangedService {
 
-    override fun create(housing_id: Long, user_id: Long, dto: ExchangedDto): ExchangedDto {
-        val housingDto = housingService.getById(housing_id)
-        val userDto = userService.getById(user_id)
+    override fun create(housingId: Long, userId: Long, dto: ExchangedDto): ExchangedDto {
+        val housingDto = housingService.getById(housingId)
+        val userDto = userService.getById(userId)
         val exchangedDao = dto.toDao()
         exchangedDao.housing = housingDto.toDao()
         exchangedDao.user = userDto.toDao()
@@ -27,8 +27,8 @@ class ExchangedServiceImpl(
         return exchangedRepository.save(exchangedDao).toUserDto()
     }
 
-    override fun getByUsers(user_id: Long): List<ExchangedDto> {
-        val exchangedDao: List<ExchangedDao> = exchangedRepository.findByUserId(user_id)
+    override fun getByUsers(userId: Long): List<ExchangedDto> {
+        val exchangedDao: List<ExchangedDao> = exchangedRepository.findByUserId(userId)
 
         return exchangedDao.toUserDto()
     }

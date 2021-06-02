@@ -1,6 +1,7 @@
 package org.isep.homeexchange.infrastructure.dao
 
 import org.isep.homeexchange.core.dto.ExchangedDto
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
@@ -12,10 +13,10 @@ data class ExchangedDao(
         var id: Long = 0,
 
         @Column
-        var startingDate: Date,
+        var startingDate: LocalDate,
 
         @Column
-        var endingDate: Date,
+        var endingDate: LocalDate,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
