@@ -1,30 +1,23 @@
 package org.isep.homeexchange.ws.controllers
 
-import org.isep.homeexchange.core.dto.CreateUserDto
-import org.isep.homeexchange.core.dto.LoginDto
 import org.isep.homeexchange.core.dto.UserDto
 import org.isep.homeexchange.core.services.UserService
+import org.isep.homeexchange.ws.annotations.User
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("users")
 class UserController(private val userService: UserService) {
 
-    @GetMapping("/{id}") //✔️
-    fun getUserById(@PathVariable id: Long): UserDto = userService.getById(id)
+    @GetMapping("/{id}")
+    fun getUserById(@User currentUser: UserDto, @PathVariable id: Long): ResponseEntity<UserDto> = ResponseEntity.ok(userService.getById(id))
 
-    @PostMapping //✔️
-    fun createUser(@RequestBody createUserDto: CreateUserDto): UserDto = userService.create(createUserDto)
+    @PutMapping
+    fun updateUser(@RequestBody dto: UserDto): UserDto = userService.update(dto, "245")
 
-    @PutMapping //✔️
-    fun updateUser(@RequestBody dto: UserDto): UserDto = userService.updateUser(dto, "245")
-
-    @DeleteMapping("/{id}") //✔️
+    @DeleteMapping("/{id}")
     fun deleteUser(@PathVariable id: Long) = userService.deleteById(id)
 
-    @DeleteMapping //✔️
-    fun deleteAll() = userService.deleteAll()
-
-    @PostMapping("/login")
-    fun authenticateUser(@RequestBody dto: LoginDto) = userService.login(dto)
 }
