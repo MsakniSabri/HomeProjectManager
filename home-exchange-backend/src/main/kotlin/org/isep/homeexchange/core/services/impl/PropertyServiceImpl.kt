@@ -36,7 +36,7 @@ class PropertyServiceImpl(
         return property.get().toUserDto()
     }
 
-    override fun setDescription(id: Long, description: String): PropertyDto {
+    override fun updateDescription(id: Long, description: String): PropertyDto {
         val propertyDao = getById(id).toDao()
         propertyDao.description = description
         return propertyRepository.save(propertyDao).toUserDto()
