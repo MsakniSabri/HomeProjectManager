@@ -1,7 +1,9 @@
 package org.isep.homeexchange.core.services.impl
 
+import org.isep.homeexchange.core.dto.ExchangedDto
 import org.isep.homeexchange.core.dto.PropositionDto
 import org.isep.homeexchange.core.dto.toDao
+import org.isep.homeexchange.core.services.ExchangedService
 import org.isep.homeexchange.core.services.HousingService
 import org.isep.homeexchange.core.services.PropositionService
 import org.isep.homeexchange.infrastructure.dao.PropositionDao
@@ -16,6 +18,7 @@ import java.util.*
 class PropositionServiceImpl(
     private val propositionRepository: PropositionRepository,
     private val housingService: HousingService,
+    private val exchangedService: ExchangedService,
 ) : PropositionService {
 
     override fun create(housing1Id: Long, housing2Id: Long, dto: PropositionDto): PropositionDto {
@@ -39,12 +42,17 @@ class PropositionServiceImpl(
         return proposition.get().toUserDto()
     }
 
-    override fun acceptExchange(id: Long) {
+    override fun acceptExchange(id: Long, exchangedDto: ExchangedDto) {
         val propositionDao = getById(id).toDao()
         val housing1 = propositionDao.housing1
         val housing2 = propositionDao.housing2
         val user1 = housing1!!.user
         val user2 = housing2!!.user
+
+        exchangedService.create(housing1.id,user2.id,exchangedDto)
+        exchangedService.create(housing2.id,user1.id,exchangedDto)
+
+        delete(id)
     }
 
 
