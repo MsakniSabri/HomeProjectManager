@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import {Redirect } from 'react-router-dom';
+import { Dispatch, useState } from 'react'
+import {Link, Redirect } from 'react-router-dom';
+import { IUserDto } from '../helpers/interfaces/interfacesDTO';
 import {isLoggedIn} from '../helpers/UserHelper';
 
-const LoginPage = () => {
+interface IProps {
+    setUser: (user: IUserDto) => void; 
+}
+
+
+const LoginPage = (props: IProps) => {
 
     const [login, setLogin] = useState<boolean>(false);
 
@@ -11,7 +17,7 @@ const LoginPage = () => {
     }
 
     return (
-        <section className="App h-screen w-full flex justify-center items-center bg-lime-200">
+        <section className="App h-screen w-full flex justify-center items-center bg-green-300">
             <div className="w-full max-w-md bg-gray-800" >
                 <form action="" className=" bg-white shadow-md rounded px-8 py-8 pt-8">
                     <div className="px-4 pb-4">
@@ -24,11 +30,13 @@ const LoginPage = () => {
                     </div>
                     <div className="flex justify-around">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={isLoginIsValid}>Sign In</button>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Register</button>
+                        <Link to="/Register">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Register</button>
+                        </Link>
                     </div>
                 </form>
             </div>
-            {login && <Redirect to="/login" />}
+            {login && <Redirect to="/Booking" />}
         </section>
     );
 }

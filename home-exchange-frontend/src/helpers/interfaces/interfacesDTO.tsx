@@ -1,13 +1,3 @@
-export interface IHousingDto {
-    id: number;
-    description: string;
-    title: string;
-    userId: number;
-    properties: IPropertieDto[];
-    user: IUserDto;
-    images: IImageDto[];
-}
-
 export interface IUserDto {
     id: number;
     email: string;
@@ -18,6 +8,37 @@ export interface IUserDto {
     admin: boolean;
     housings: IHousingDto[];
 }
+
+export const defaultUser: IUserDto = {
+    id: 0, 
+    email: '', 
+    phoneNumber: 'string', 
+    firstname: '', 
+    lastname: '', 
+    profilePictureUrl: '', 
+    admin: false, 
+    housings: []
+}
+
+export interface IHousingDto {
+    id: number;
+    description: string;
+    title: string;
+    userId: number;
+    properties: IPropertieDto[];
+    images: IImageDto[];
+}
+
+export const defaultHousing: IHousingDto = {
+    id: 0,
+    description: "",
+    title: "",
+    userId: 0,
+    properties: [],
+    images: [],
+}
+
+
 
 export interface IPropertieDto {
     id: number;
