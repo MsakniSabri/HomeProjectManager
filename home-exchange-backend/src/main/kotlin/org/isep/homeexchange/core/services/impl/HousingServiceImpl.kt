@@ -1,5 +1,6 @@
 package org.isep.homeexchange.core.services.impl
 
+import org.isep.homeexchange.core.dto.CreateHousingDto
 import org.isep.homeexchange.core.dto.HousingDto
 import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.HousingService
@@ -18,7 +19,7 @@ class HousingServiceImpl(
     private val userService: UserService,
 ) : HousingService {
 
-    override fun create(dto: HousingDto): HousingDto {
+    override fun create(dto: CreateHousingDto): HousingDto {
         val userDto = userService.getById(dto.userId)
         val housingDao = dto.toDao()
         housingDao.user = userDto.toDao()
@@ -49,8 +50,11 @@ class HousingServiceImpl(
     }
 
     override fun updateHousing(dto: HousingDto): HousingDto {
+        val userDto = userService.getById(dto.userId)
+        val housingDao = dto.toDao()
+        housingDao.user = userDto.toDao()
 
-        return create(dto)
+        return housingRepository.save(housingDao).toDto()
     }
 
     override fun deleteById(id: Long) {
