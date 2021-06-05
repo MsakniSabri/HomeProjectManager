@@ -1,19 +1,17 @@
 package org.isep.homeexchange.core.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.isep.homeexchange.infrastructure.dao.UserDao
 
 data class CreateUserDto(
-    val id: Long,
-    val email: String,
-    val password: String,
-    val phoneNumber: String?,
-    val firstname: String,
-    val lastname: String,
-) {
-}
+    @JsonProperty("email") val email: String,
+    @JsonProperty("password") val password: String,
+    @JsonProperty("phoneNumber") val phoneNumber: String?,
+    @JsonProperty("firstname") val firstname: String,
+    @JsonProperty("lastname") val lastname: String,
+)
 
 fun CreateUserDto.toDao(): UserDao = UserDao(
-    id = id,
     email = email,
     password = password,
     phoneNumber = phoneNumber,

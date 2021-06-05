@@ -50,5 +50,5 @@ fun UserDao.toUserDto(): UserDto = UserDto(
 
 fun UserDao.toLoginDto(): LoginDto = LoginDto(
     email = email,
-    password = this!!.password,
+    password = password,
 )
