@@ -5,8 +5,9 @@ import org.isep.homeexchange.core.dto.CreateUserDto
 import org.isep.homeexchange.core.dto.LoginDto
 import org.isep.homeexchange.core.dto.UserDto
 import org.isep.homeexchange.core.services.AuthService
-import org.springframework.http.HttpStatus
+import org.isep.homeexchange.ws.annotations.User
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -35,5 +36,8 @@ class AuthController(
     @PostMapping("/register")
     fun register(@RequestBody dto: CreateUserDto): ResponseEntity<UserDto> =
         ResponseEntity.ok(authService.register(dto))
+
+    @GetMapping("/me")
+    fun me(@User currentUser: UserDto): ResponseEntity<UserDto> = ResponseEntity.ok(currentUser)
 
 }

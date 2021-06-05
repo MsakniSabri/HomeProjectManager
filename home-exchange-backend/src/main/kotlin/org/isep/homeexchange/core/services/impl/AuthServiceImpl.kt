@@ -21,6 +21,10 @@ class AuthServiceImpl(
 ) : AuthService {
 
     override fun register(dto: CreateUserDto): UserDto {
+        if (userRepository.existsByEmail(dto.email)) {
+            throw ResponseStatusException(HttpStatus.CONFLICT, "Email already used")
+        }
+
         val userDao = dto.toDao()
         userDao.password = passwordEncoder.encode(dto.password)
 
