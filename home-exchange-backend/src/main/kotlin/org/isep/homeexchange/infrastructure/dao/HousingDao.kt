@@ -21,9 +21,6 @@ data class HousingDao(
     var properties: List<PropertyDao>,
 
     @OneToMany(mappedBy = "id", orphanRemoval = true)
-    var exchanged: List<ExchangedDao>,
-
-    @OneToMany(mappedBy = "id", orphanRemoval = true)
     var images: List<ImageDao>,
 
     @Column(name = "user_id", insertable = false, updatable = false)
@@ -37,7 +34,6 @@ fun HousingDao.toUserDto() = HousingDto(
     userId = userId,
     user = user.toUserDto(),
     properties = properties.toUserDto(),
-    exchanged = exchanged.toUserDto(),
     images = images.toUserDto(),
 )
 

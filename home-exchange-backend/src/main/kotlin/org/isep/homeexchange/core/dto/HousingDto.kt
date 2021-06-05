@@ -7,7 +7,6 @@ data class HousingDto(
     val description: String,
     val userId: Long,
     val properties: List<PropertyDto>?,
-    val exchanged: List<ExchangedDto>?,
     val user: UserDto,
     val images: List<ImageDto>
 )
@@ -17,7 +16,6 @@ fun HousingDto.toDao() = HousingDao(
     description = description,
     user = user.toDao(),
     properties = properties!!.toDao(),
-    exchanged = exchanged!!.toDao(),
     images = images.toDao(),
     userId = userId
 )
