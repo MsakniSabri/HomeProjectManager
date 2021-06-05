@@ -3,37 +3,18 @@ import { getMyHouses } from "../helpers/HousesHelper";
 import { IHousingDto } from "../helpers/interfaces/interfacesDTO";
 import Header from "./Header";
 
-const MyHousings = (props: any) => {
+interface IProps {
+    userId: number;
+}
+
+const MyHousings = (props: IProps) => {
 
     const [housings, setHousings] = useState<IHousingDto[]>([])
 
     useEffect(() => {
-        setHousings(getMyHouses(props.id))
+        setHousings(getMyHouses(props.userId))
         console.log("get houses")
     }, []);
-
-    const housingsTest: IHousingDto[] = [{
-        id: 5,
-        description: "Ortembach: Maison individuelle accueillante, simple, rénovée en 2013. À 2 km du centre, situation tranquille quartier résidentiel, à 2.5 km de la mer. En été : Plage de sable, avec installations de plage, adaptée pour les enfants. Crique pour les baignades. Parc aquatique 'Aqualandia' à 25 km. Port de plaisance Club Naútico.",
-        title: "Villa bord de mer",
-        userId: 1,
-        properties: [
-            { id: 1, description: "pas d'animaux de compagnie" },
-            { id: 2, description: "pas d'enfants" },
-            { id: 3, description: "pas de fêtes" },
-            { id: 3, description: "pas de drogues" },
-            { id: 3, description: "pas d'alcool" },
-            { id: 3, description: "pas d'alcool" },
-            { id: 3, description: "pas d'alcool" },
-        ],
-        images: [
-            { id: 1, imageAddress: "https://www.villas.fr/upload/villa-image/4211/medium/i5348_1479734879.jpg", housingId: 2 },
-            { id: 2, imageAddress: "https://www.villas.fr/upload/villa-image/4211/medium/i5394_1479734884.jpg", housingId: 2 },
-            { id: 3, imageAddress: "https://www.villas.fr/upload/villa-image/4211/medium/i5373_1479734883.jpg", housingId: 2 },
-            { id: 4, imageAddress: "https://www.villas.fr/upload/villa-image/4211/medium/i5352_1479734880.jpg", housingId: 2 },
-            { id: 5, imageAddress: "https://www.villas.fr/upload/villa-image/4211/medium/i5359_1479734880.jpg", housingId: 2 }
-        ]
-    }]
     
     return(
         <>
@@ -58,7 +39,7 @@ const MyHousings = (props: any) => {
                                 </svg>
                                 <p className="pl-4 text-xl">Add a house</p>
                             </button>
-                            {housingsTest.map(housing => (
+                            {housings.map(housing => (
                                 <a href={`/House/${housing.id}`} className="w-11/12 m-3">
                                     <div className="flex border-2 p-4 border-green-200 rounded-md bg-green-50 h-56">
                                         <img className="w-3/12" src="https://www.igc-construction.fr/sites/default/files/2019-11/maison-de-ville-avec-piscine-a-bordeaux.jpg" alt="" />

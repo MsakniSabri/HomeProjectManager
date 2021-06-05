@@ -10,11 +10,19 @@ import House from "./components/House";
 import LoginPage from "./components/LoginPage";
 import MyHousings from "./components/MyHousings";
 import RegisterPage from "./components/RegisterPage";
-import { IUserDto } from "./helpers/interfaces/interfacesDTO";
+import { defaultUser, IUserDto } from "./helpers/interfaces/interfacesDTO";
+import { getUser } from "./helpers/UserHelper";
 
 function App() {
 
-  const [user, setUser] = useState<IUserDto>({id: 0, email: '', phoneNumber: 'string', firstname: '', lastname: '', profilePictureUrl: '', admin: false, housings: []})
+  const [user, setUser] = useState<IUserDto>(defaultUser) //1 dans interface pour tester
+
+  useEffect(() => {
+      getUser()
+        .then(response => setUser(response))
+  }, [])
+
+  console.log(user)
 
   return (
     <Router>
@@ -23,16 +31,16 @@ function App() {
           <LoginPage setUser={setUser}/>
         </Route>
         <Route path="/register">
-          <RegisterPage />
+          <RegisterPage setUser={setUser}/>
         </Route>
         <Route path="/Booking">
           <Booking />
         </Route>
         <Route path="/MyHousings">
-          <MyHousings/>
+          <MyHousings userId={user.id}/>
         </Route>
         <Route path="/House/:id">
-          <House/>
+          <House userId={user.id}/>
         </Route>
       </Switch>
     </Router>

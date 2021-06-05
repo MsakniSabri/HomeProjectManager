@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { defaultHousing, IHousingDto } from './interfaces/interfacesDTO';
 
-export const getAllHouses = () => {
+export const getAllHouses = async () => {
     let Housings: IHousingDto[] = [];
 
-    axios
+    await axios
         .get<IHousingDto[]>("http://localhost:8080/housings")
         .then(response => {
             Housings = response.data;
@@ -17,7 +17,7 @@ export const getMyHouses = (id: number) => {
     let Housings: IHousingDto[] = [];
 
     axios
-        .get<IHousingDto[]>('http://localhost:8080/housings/user/' + {id})
+        .get<IHousingDto[]>('http://localhost:8080/housings/user/' + id)
         .then(response => {
             Housings = response.data;
         })
@@ -25,11 +25,11 @@ export const getMyHouses = (id: number) => {
     return Housings;
 }
 
-export const getHouseById = (id: number) => {
+export const getHouseById = async (id: number) => {
     let Housing: IHousingDto = defaultHousing;
 
-    axios
-        .get<IHousingDto>('http://localhost:8080/housings/1' + {id})
+    await axios
+        .get<IHousingDto>('http://localhost:8080/housings/' + id)
         .then(response => {
             Housing = response.data;
         })

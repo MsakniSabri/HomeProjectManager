@@ -54,7 +54,7 @@ class HousingServiceImpl(
         val housingDao = dto.toDao()
         housingDao.user = userDto.toDao()
 
-        return housingRepository.save(housingDao).toDto()
+        return housingRepository.save(housingDao).toUserDto()
     }
 
     override fun deleteById(id: Long) {

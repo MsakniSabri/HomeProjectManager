@@ -36,7 +36,6 @@ fun HousingDao.toUserDto() = HousingDto(
     description,
     title,
     userId = userId,
-    user = user.toUserDto(),
     properties = properties.toUserDto(),
     images = images.toUserDto(),
 )

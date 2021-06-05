@@ -9,10 +9,18 @@ export interface IUserDto {
     housings: IHousingDto[];
 }
 
+export interface IRegisterDto {
+    email: string,
+    password: string,
+    phoneNumber?: string,
+    firstname: string,
+    lastname: string,
+}
+
 export const defaultUser: IUserDto = {
     id: 0, 
     email: '', 
-    phoneNumber: 'string', 
+    phoneNumber: '', 
     firstname: '', 
     lastname: '', 
     profilePictureUrl: '', 
@@ -38,8 +46,6 @@ export const defaultHousing: IHousingDto = {
     images: [],
 }
 
-
-
 export interface IPropertieDto {
     id: number;
     description: string;
@@ -49,13 +55,4 @@ export interface IImageDto {
     id: number;
     imageAddress: string;
     housingId: number;
-}
-
-export interface ICreateUserDto {
-    id: number;
-    email: string;
-    password: string;
-    phonNumber?: string;
-    firstname: string;
-    lastname: string;
 }
