@@ -4,9 +4,9 @@ import org.isep.homeexchange.core.dto.PropositionDto
 import java.time.LocalDate
 
 interface PropositionService {
-    fun create(housing1Id: Long,housing2Id: Long, startingDate: LocalDate, endingDate: LocalDate, dto: PropositionDto): PropositionDto
+    fun create(dto: PropositionDto): PropositionDto
     fun getById(id: Long): PropositionDto
-    fun getAllAcceptedPropositions(): List<PropositionDto>
+    fun getAllPropositionsByAccepted(accepted: Boolean): List<PropositionDto>
     fun acceptExchange(id: Long)
     fun delete(id: Long)
 }

@@ -5,7 +5,7 @@ import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.HousingService
 import org.isep.homeexchange.core.services.UserService
 import org.isep.homeexchange.infrastructure.dao.HousingDao
-import org.isep.homeexchange.infrastructure.dao.toUserDto
+import org.isep.homeexchange.infrastructure.dao.toHousingDto
 import org.isep.homeexchange.infrastructure.repository.HousingRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -23,7 +23,7 @@ class HousingServiceImpl(
         val housingDao = dto.toDao()
         housingDao.user = userDto.toDao()
 
-        return housingRepository.save(housingDao).toUserDto()
+        return housingRepository.save(housingDao).toHousingDto()
     }
 
     override fun getById(id: Long): HousingDto {
@@ -33,19 +33,19 @@ class HousingServiceImpl(
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Housing doesn't exist")
         }
 
-        return housing.get().toUserDto()
+        return housing.get().toHousingDto()
     }
 
     override fun getByUsers(userId: Long): List<HousingDto> {
         val housingsDao: List<HousingDao> = housingRepository.findByUserId(userId)
 
-        return housingsDao.toUserDto()
+        return housingsDao.toHousingDto()
     }
 
     override fun getAll(): List<HousingDto> {
         val housingsDao: List<HousingDao> = housingRepository.findAll();
 
-        return housingsDao.toUserDto()
+        return housingsDao.toHousingDto()
     }
 
     override fun updateHousing(dto: HousingDto): HousingDto {

@@ -37,7 +37,7 @@ class UserDao(
 
     )
 
-fun UserDao.toUserDto(): UserDto = UserDto(
+fun UserDao.toPropertyDto(): UserDto = UserDto(
     id = id,
     email = email,
     phoneNumber = phoneNumber,
@@ -45,7 +45,7 @@ fun UserDao.toUserDto(): UserDto = UserDto(
     lastname = lastname,
     profilePictureUrl = profilePictureUrl,
     admin = admin,
-    housings = housings.toUserDto()
+    housings = housings.toHousingDto()
 )
 
 fun UserDao.toLoginDto(): LoginDto = LoginDto(

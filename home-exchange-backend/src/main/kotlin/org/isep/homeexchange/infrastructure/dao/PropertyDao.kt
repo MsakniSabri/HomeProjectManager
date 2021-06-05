@@ -18,9 +18,9 @@ data class PropertyDao(
         var housing: HousingDao?
 )
 
-fun PropertyDao.toUserDto() = PropertyDto(
+fun PropertyDao.toPropertyDto() = PropertyDto(
         id,
         description,
 )
 
-fun List<PropertyDao>.toUserDto() = map { it.toUserDto() }
+fun List<PropertyDao>.toPropertyDto() = map { it.toPropertyDto() }

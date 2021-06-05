@@ -12,10 +12,7 @@ class PropositionController(
 ){
 
     @PostMapping
-    fun createProposition(@PathVariable housing1Id: Long,
-                          @PathVariable housing2Id: Long,
-                          @PathVariable startingDate: LocalDate,
-                          @PathVariable endingDate: LocalDate,
-                          @RequestBody dto: PropositionDto
-    ): PropositionDto = propositionService.create(housing1Id,housing2Id,startingDate,endingDate,dto)
+    fun createProposition(@RequestBody dto: PropositionDto): PropositionDto = propositionService.create(dto)
+
+
 }

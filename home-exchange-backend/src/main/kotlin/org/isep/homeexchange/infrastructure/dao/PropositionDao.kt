@@ -22,18 +22,20 @@ data class PropositionDao(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
-        var housing1: HousingDao?,
+        var proposedHousing: HousingDao?,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "housing_id")
-        var housing2: HousingDao?,
+        var requestedHousing: HousingDao?,
 )
 
-fun PropositionDao.toUserDto() = PropositionDto(
+fun PropositionDao.toPropositionDto() = PropositionDto(
         id,
         accepted,
         startingDate,
         endingDate,
+        proposedHousing = proposedHousing!!.toHousingDto(),
+        requestedHousing = requestedHousing!!.toHousingDto(),
 )
 
-fun List<PropositionDao>.toUserDto() = map { it.toUserDto() }
+fun List<PropositionDao>.toPropositionDto() = map { it.toPropositionDto() }

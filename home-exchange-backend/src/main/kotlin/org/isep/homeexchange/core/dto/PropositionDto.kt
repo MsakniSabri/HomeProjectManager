@@ -9,6 +9,8 @@ data class PropositionDto(
     val accepted: Boolean,
     val startingDate: LocalDate,
     val endingDate: LocalDate,
+    val proposedHousing: HousingDto,
+    val requestedHousing: HousingDto,
 )
 
 fun PropositionDto.toDao() = PropositionDao(
@@ -16,8 +18,8 @@ fun PropositionDto.toDao() = PropositionDao(
     accepted = accepted,
     startingDate = startingDate,
     endingDate = endingDate,
-    housing1 = null,
-    housing2 = null
+    proposedHousing = proposedHousing.toDao(),
+    requestedHousing = requestedHousing.toDao(),
 )
 
 fun List<PropositionDto>.toDao() = map { it.toDao() }
