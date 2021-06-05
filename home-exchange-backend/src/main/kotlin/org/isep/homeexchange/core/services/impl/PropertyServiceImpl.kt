@@ -4,7 +4,7 @@ import org.isep.homeexchange.core.dto.PropertyDto
 import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.PropertyService
 import org.isep.homeexchange.core.services.HousingService
-import org.isep.homeexchange.infrastructure.dao.toDto
+import org.isep.homeexchange.infrastructure.dao.toUserDto
 import org.isep.homeexchange.infrastructure.repository.PropertyRepository
 import org.springframework.stereotype.Service
 
@@ -19,7 +19,7 @@ class PropertyServiceImpl(
         val propertyDao = dto.toDao()
         propertyDao.housing = housingDto.toDao()
 
-        return propertyRepository.save(propertyDao).toDto()
+        return propertyRepository.save(propertyDao).toUserDto()
     }
 
     override fun delete(id: Long){
