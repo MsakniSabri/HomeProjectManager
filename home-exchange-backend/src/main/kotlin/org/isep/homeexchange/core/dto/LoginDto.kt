@@ -1,6 +1,8 @@
 package org.isep.homeexchange.core.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 data class LoginDto(
-    val email: String,
-    val password: String?,
+    @JsonProperty("email") val email: String,
+    @JsonProperty("password") val password: String?
 )
