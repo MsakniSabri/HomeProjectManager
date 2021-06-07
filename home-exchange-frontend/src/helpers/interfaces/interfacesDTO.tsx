@@ -37,6 +37,14 @@ export interface IHousingDto {
     images: IImageDto[];
 }
 
+export interface ICreateHousingDto {
+    description: string;
+    title: string;
+    userId: number;
+    properties: IPropertieDto[];
+    images: IImageDto[];
+}
+
 export const defaultHousing: IHousingDto = {
     id: 0,
     description: "",

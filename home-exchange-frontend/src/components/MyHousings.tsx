@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMyHouses } from "../helpers/HousesHelper";
 import { IHousingDto } from "../helpers/interfaces/interfacesDTO";
+import AddHousePopup from "./AddHousePopup";
 import Header from "./Header";
 
 interface IProps {
@@ -10,18 +11,27 @@ interface IProps {
 const MyHousings = (props: IProps) => {
 
     const [housings, setHousings] = useState<IHousingDto[]>([])
+    const [IsAddPopupOpen, setAddPopupOpen] = useState<boolean>(false)
 
     useEffect(() => {
-        setHousings(getMyHouses(props.userId))
+        const userId = props.userId;
+        getMyHouses(userId)
+            .then(res => {
+                setHousings(res);
+            })
         console.log("get houses")
     }, []);
     
+    const setIsPopUpOpen = () => {
+        setAddPopupOpen(true)
+    }
+
     return(
         <>
             <Header />
-            <section className="App h-screen w-full flex justify-center items-center bg-green-100 relative">
+            <section className="App h-screen w-full flex justify-center items-center bg-green-100">
                 <div className="mt-16 flex flex-col items-center justify-center w-10/12 max-w-screen-2xl h-4/5 rounded-md bg-white pb-8" >
-                    <h1 className="text-5xl mb-8 mt-4">My Housings</h1>
+                    <h1 className="text-5xl mb-8 mt-4">My Housings - {props.userId}</h1>
                     <div className="w-11/12 relative text-gray-600 h-5/6">
                         <div className="bg-white sticky top-0 p-2">
                             <input className="sticky top-0 w-1/2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
@@ -33,7 +43,7 @@ const MyHousings = (props: IProps) => {
                             </button>
                         </div>
                         <div className="mt-8 flex flex-col items-center pb-4 overflow-auto h-5/6">
-                            <button type="submit" className="p-1 mb-3 w-11/12 flex items-center justify-start bg-green-50 rounded-full border-2 border-green-200">
+                            <button type="submit" onClick={setIsPopUpOpen} className="p-1 mb-3 w-11/12 flex items-center justify-start bg-green-50 rounded-full border-2 border-green-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -60,6 +70,7 @@ const MyHousings = (props: IProps) => {
                         </div>
                     </div>
                 </div>
+                {IsAddPopupOpen && <AddHousePopup userId={props.userId} setIsPopupOpen={setAddPopupOpen}/>}
             </section>
         </>
     )

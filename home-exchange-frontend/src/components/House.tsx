@@ -29,17 +29,14 @@ const House = (props: IProps) => {
         setPopUpOpen(true)
     }
 
-
-
     return (
         <>
-
             <Header />
             <section className="App h-screen w-full flex justify-center items-center bg-green-100">
                 <div className="mt-16 flex flex-col items-center justify-center w-10/12 max-w-screen-2xl h-4/5 rounded-md bg-white pb-8" >
                     <div className="relative flex w-full justify-center">
                         <h1 className="text-5xl">{housing.title} {props.userId}</h1>
-                        {housing.id === props.userId &&
+                        {housing.userId === props.userId &&
                             <div className="absolute flex w-16 justify-around right-16 top-2">
                                 <button type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { defaultHousing, IHousingDto } from './interfaces/interfacesDTO';
+import { defaultHousing, ICreateHousingDto, IHousingDto } from './interfaces/interfacesDTO';
 
 export const getAllHouses = async () => {
     let Housings: IHousingDto[] = [];
@@ -13,10 +13,10 @@ export const getAllHouses = async () => {
     return Housings;
 }
 
-export const getMyHouses = (id: number) => {
+export const getMyHouses = async (id: number) => {
     let Housings: IHousingDto[] = [];
 
-    axios
+    await axios
         .get<IHousingDto[]>('http://localhost:8080/housings/user/' + id)
         .then(response => {
             Housings = response.data;
@@ -35,4 +35,17 @@ export const getHouseById = async (id: number) => {
         })
 
     return Housing;
+}
+
+export const createHouse = async (house: ICreateHousingDto) => {
+    let houseId = 0;
+
+    await axios
+        .post<IHousingDto>("http://localhost:8080/housings", house)
+        .then(response => {
+            console.log(response.data)
+            houseId = response.data.id;
+        })
+
+    return houseId;
 }

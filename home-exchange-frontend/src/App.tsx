@@ -22,8 +22,6 @@ function App() {
         .then(response => setUser(response))
   }, [])
 
-  console.log(user)
-
   return (
     <Router>
       <Switch>

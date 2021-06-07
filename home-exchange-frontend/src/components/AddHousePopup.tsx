@@ -1,23 +1,32 @@
 import { useState } from "react";
-import { IHousingDto } from "../helpers/interfaces/interfacesDTO"
+import { Redirect } from "react-router";
+import { createHouse } from "../helpers/HousesHelper";
+import { IHousingDto, IImageDto, IPropertieDto, ICreateHousingDto } from "../helpers/interfaces/interfacesDTO"
+import House from "./House";
 
 interface IProps {
-    housing: IHousingDto,
-    setHousing: (housing: IHousingDto) => void;
     setIsPopupOpen: (boolean: boolean) => void;
+    userId: number;
 }
 
 const AddHousePopup = (props: IProps) => {
 
-    const [title, setTitle] = useState<string>(props.housing.title)
-    const [description, setDescription] = useState<string>(props.housing.description) 
+    const [title, setTitle] = useState<string>("")
+    const [description, setDescription] = useState<string>("") 
+    const [isCreated, setCreated] = useState<boolean>(false)
+    const [houseIdCreated, setHouseIdCreated] = useState<number>(0)
 
     const closePopup = () => {
-        let housing = props.housing;
-        props.setIsPopupOpen(false);
-        housing.title = title;
-        housing.description = description;
-        props.setHousing(housing)
+        const userId = props.userId;
+        const images: IImageDto[] = [];
+        const properties: IPropertieDto[] = [];
+        const house: ICreateHousingDto = {description, title, userId, images, properties};
+        createHouse(house)
+            .then(res => {
+                setHouseIdCreated(res)
+                setCreated(true)
+                console.log("house created")
+            })
     }
 
     return (
@@ -35,13 +44,13 @@ const AddHousePopup = (props: IProps) => {
                         </div>
                     </div>
                     <div className="flex justify-around mt-10">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={closePopup}>Register</button>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={closePopup}>Create</button>
                     </div>
                 </form>
             </div>
+            {isCreated && <Redirect to={"/House/" + houseIdCreated} />}
         </section>
     )
-
 }
 
 export default AddHousePopup

@@ -22,7 +22,6 @@ const LoginPage = (props: IProps) => {
             axios.post('http://localhost:8080/login', { email, password }, { withCredentials: true })
                 .then(response => {
                     console.log("Successfully login");
-                    console.log(response)
                     setMessage("");
                     props.setUser(response.data);
                     setLogin(true)
