@@ -32,7 +32,7 @@ const Header = () => {
                     Messages
                   </Link>
 
-                  <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <Link to="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     Profile
                   </Link>
                 </div>

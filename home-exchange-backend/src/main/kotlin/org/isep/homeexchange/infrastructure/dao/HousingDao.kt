@@ -33,8 +33,8 @@ data class HousingDao(
 
 fun HousingDao.toUserDto() = HousingDto(
     id,
-    description,
     title,
+    description,
     userId = userId,
     properties = properties.toUserDto(),
     images = images.toUserDto(),

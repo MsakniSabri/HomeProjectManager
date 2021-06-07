@@ -9,6 +9,7 @@ import Booking from './components/Booking'
 import House from "./components/House";
 import LoginPage from "./components/LoginPage";
 import MyHousings from "./components/MyHousings";
+import Profile from "./components/Profile";
 import RegisterPage from "./components/RegisterPage";
 import { defaultUser, IUserDto } from "./helpers/interfaces/interfacesDTO";
 import { getUser } from "./helpers/UserHelper";
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path="/House/:id">
           <House userId={user.id}/>
+        </Route>
+        <Route path="/profile">
+          <Profile/>
         </Route>
       </Switch>
     </Router>

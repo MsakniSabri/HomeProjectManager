@@ -1,5 +1,5 @@
 import axios from "axios";
-import { defaultUser, IRegisterDto, IUserDto } from "./interfaces/interfacesDTO";
+import { defaultUser, IUserDto } from "./interfaces/interfacesDTO";
 
 export const getUser = async () => {
     let user: IUserDto = defaultUser;
@@ -8,8 +8,20 @@ export const getUser = async () => {
         .get<IUserDto>('http://localhost:8080/me', { withCredentials: true })
         .then(response => {
             user = response.data;
-            console.log(user)
         })
 
     return user;
+}
+
+export const updateUser = async (user: IUserDto) => {
+    let _user: IUserDto = defaultUser;
+
+    await axios
+        .put("http://localhost:8080/users", user)
+        .then(response => {
+            console.log("updated", response.data)
+            _user = response.data
+        })
+    
+        return _user;
 }

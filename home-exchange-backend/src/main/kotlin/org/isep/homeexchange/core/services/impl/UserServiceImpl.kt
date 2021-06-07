@@ -1,5 +1,7 @@
 package org.isep.homeexchange.core.services.impl
 
+import org.isep.homeexchange.core.dto.CreateUserDto
+import org.isep.homeexchange.core.dto.UpdateUserDto
 import org.isep.homeexchange.core.dto.UserDto
 import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.UserService
@@ -38,11 +40,11 @@ class UserServiceImpl(
         return user.get().toUserDto()
     }
 
-    override fun update(dto: UserDto, password: String?): UserDto {
+    override fun update(dto: UpdateUserDto): UserDto {
         val userDao = dto.toDao()
 
-        if (!password.isNullOrEmpty()) {
-            userDao.password = passwordEncoder.encode(password)
+        if (!dto.password.isNullOrEmpty()) {
+            userDao.password = passwordEncoder.encode(dto.password)
         } else {
             val user: Optional<UserDao> = userRepository.findById(userDao.id)
             if (user.isEmpty) {

@@ -1,8 +1,7 @@
-import React from "react";
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { getAllHouses, getHouseById } from "../helpers/HousesHelper";
+import { Link, Redirect} from "react-router-dom";
+import { DeleteHouseById, getHouseById } from "../helpers/HousesHelper";
 import { IHousingDto, defaultHousing } from "../helpers/interfaces/interfacesDTO";
 import Header from "./Header";
 import ModifyHousePopup from "./ModifyHousePopup";
@@ -15,10 +14,9 @@ const House = (props: IProps) => {
 
     const params: any = useParams();
 
-    console.log(props.userId)
-
     const [isPopPupOpen, setPopUpOpen] = useState<boolean>(false)
     const [housing, setHousing] = useState<IHousingDto>(defaultHousing)
+    const [isDeleted, setIsDeleted] = useState<boolean>(false)
 
     useEffect(() => {
         getHouseById(params.id)
@@ -29,16 +27,21 @@ const House = (props: IProps) => {
         setPopUpOpen(true)
     }
 
+    const deleteThisHouse = (id: number) => {
+        DeleteHouseById(id);
+        setIsDeleted(true);
+    }
+
     return (
         <>
             <Header />
             <section className="App h-screen w-full flex justify-center items-center bg-green-100">
                 <div className="mt-16 flex flex-col items-center justify-center w-10/12 max-w-screen-2xl h-4/5 rounded-md bg-white pb-8" >
                     <div className="relative flex w-full justify-center">
-                        <h1 className="text-5xl">{housing.title} {props.userId}</h1>
+                        <h1 className="text-5xl">{housing.title}</h1>
                         {housing.userId === props.userId &&
                             <div className="absolute flex w-16 justify-around right-16 top-2">
-                                <button type="submit">
+                                <button type="submit" onClick={() => deleteThisHouse(housing.id)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -84,6 +87,7 @@ const House = (props: IProps) => {
                     </div>
                 </div>
                 {isPopPupOpen && <ModifyHousePopup housing={housing} setHousing={setHousing} setIsPopupOpen={setPopUpOpen} />}
+                {isDeleted && <Redirect to="/MyHousings" />}
             </section>
         </>
     );

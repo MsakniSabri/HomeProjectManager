@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Redirect } from "react-router";
 import { IRegisterDto, IUserDto } from "../helpers/interfaces/interfacesDTO";
 

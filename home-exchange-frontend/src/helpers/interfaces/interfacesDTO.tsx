@@ -1,7 +1,19 @@
 export interface IUserDto {
     id: number;
     email: string;
-    phoneNumber?: string;
+    phoneNumber: string;
+    firstname: string;
+    lastname: string;
+    profilePictureUrl?: string;
+    admin: boolean;
+    housings: IHousingDto[];
+}
+
+export interface IUpdateUserDto {
+    id: number;
+    email: string;
+    phoneNumber: string;
+    password: string;
     firstname: string;
     lastname: string;
     profilePictureUrl?: string;

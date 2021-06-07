@@ -26,7 +26,7 @@ class HousingController(
     @GetMapping //✔️
     fun getAllHousings(): List<HousingDto> = housingService.getAll()
 
-    @PutMapping //?? Ne modifie pas dans la bdd
+    @PutMapping //
     fun updateHousing(@RequestBody dto: HousingDto): HousingDto = housingService.updateHousing(dto)
 
     @DeleteMapping("/{id}") //✔️

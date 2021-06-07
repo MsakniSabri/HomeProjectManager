@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Dispatch, useState } from 'react'
+import { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom';
 import { IUserDto } from '../helpers/interfaces/interfacesDTO';
 
