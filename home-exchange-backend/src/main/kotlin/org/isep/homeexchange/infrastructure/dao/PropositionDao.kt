@@ -15,6 +15,9 @@ data class PropositionDao(
         var accepted: Boolean,
 
         @Column
+        var pending: Boolean,
+
+        @Column
         var startingDate: LocalDate,
 
         @Column
@@ -32,6 +35,7 @@ data class PropositionDao(
 fun PropositionDao.toPropositionDto() = PropositionDto(
         id,
         accepted,
+        pending,
         startingDate,
         endingDate,
         proposedHousing = proposedHousing!!.toHousingDto(),

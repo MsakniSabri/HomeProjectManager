@@ -8,7 +8,7 @@ import org.isep.homeexchange.core.services.HashService
 import org.isep.homeexchange.core.services.UserService
 import org.isep.homeexchange.infrastructure.dao.UserDao
 import org.isep.homeexchange.infrastructure.dao.toLoginDto
-import org.isep.homeexchange.infrastructure.dao.toPropertyDto
+import org.isep.homeexchange.infrastructure.dao.toUserDto
 import org.isep.homeexchange.infrastructure.repository.UserRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -29,7 +29,7 @@ class UserServiceImpl(
         val userDao = dto.toDao()
         userDao.password = hashService.hashPassword(dto.password)
 
-        return userRepository.save(userDao).toPropertyDto()
+        return userRepository.save(userDao).toUserDto()
     }
 
     override fun getById(id: Long): UserDto {
@@ -39,7 +39,7 @@ class UserServiceImpl(
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist")
         }
 
-        return user.get().toPropertyDto()
+        return user.get().toUserDto()
     }
 
     override fun getByEmail(email: String): LoginDto {
@@ -65,7 +65,7 @@ class UserServiceImpl(
             userDao.password = user.get().password
         }
 
-        return userRepository.save(userDao).toPropertyDto()
+        return userRepository.save(userDao).toUserDto()
     }
 
     override fun deleteById(id: Long) {

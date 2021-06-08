@@ -37,7 +37,7 @@ class UserDao(
 
     )
 
-fun UserDao.toPropertyDto(): UserDto = UserDto(
+fun UserDao.toUserDto(): UserDto = UserDto(
     id = id,
     email = email,
     phoneNumber = phoneNumber,

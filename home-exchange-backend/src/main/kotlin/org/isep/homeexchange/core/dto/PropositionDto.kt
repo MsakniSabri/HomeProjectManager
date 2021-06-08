@@ -7,6 +7,7 @@ import java.util.*
 data class PropositionDto(
     val id: Long,
     val accepted: Boolean,
+    val pending: Boolean,
     val startingDate: LocalDate,
     val endingDate: LocalDate,
     val proposedHousing: HousingDto,
@@ -16,6 +17,7 @@ data class PropositionDto(
 fun PropositionDto.toDao() = PropositionDao(
     id = id,
     accepted = accepted,
+    pending = pending,
     startingDate = startingDate,
     endingDate = endingDate,
     proposedHousing = proposedHousing.toDao(),
