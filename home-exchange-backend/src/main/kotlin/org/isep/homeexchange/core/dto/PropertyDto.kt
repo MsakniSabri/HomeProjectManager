@@ -6,7 +6,7 @@ data class PropertyDto(
     val id: Long,
     val description: String,
 )
-
+//test
 fun PropertyDto.toDao() = PropertyDao(
     id = id,
     description = description,
