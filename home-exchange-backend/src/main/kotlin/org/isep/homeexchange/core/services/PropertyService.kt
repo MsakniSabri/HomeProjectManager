@@ -4,5 +4,7 @@ import org.isep.homeexchange.core.dto.PropertyDto
 
 interface PropertyService {
     fun create(id: Long, dto: PropertyDto): PropertyDto
+    fun getById(id: Long): PropertyDto
+    fun updateDescription(id: Long, description: String): PropertyDto
     fun delete(id: Long)
 }

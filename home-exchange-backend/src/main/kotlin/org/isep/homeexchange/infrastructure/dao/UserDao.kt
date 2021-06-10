@@ -45,7 +45,7 @@ fun UserDao.toUserDto(): UserDto = UserDto(
     lastname = lastname,
     profilePictureUrl = profilePictureUrl,
     admin = admin,
-    housings = housings.toUserDto()
+    housings = housings.toHousingDto()
 )
 
 fun UserDao.toLoginDto(): LoginDto = LoginDto(

@@ -4,9 +4,13 @@ import org.isep.homeexchange.core.dto.PropertyDto
 import org.isep.homeexchange.core.dto.toDao
 import org.isep.homeexchange.core.services.PropertyService
 import org.isep.homeexchange.core.services.HousingService
+import org.isep.homeexchange.infrastructure.dao.PropertyDao
 import org.isep.homeexchange.infrastructure.dao.toUserDto
 import org.isep.homeexchange.infrastructure.repository.PropertyRepository
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
+import java.util.*
 
 @Service
 class PropertyServiceImpl(
@@ -19,6 +23,22 @@ class PropertyServiceImpl(
         val propertyDao = dto.toDao()
         propertyDao.housing = housingDto.toDao()
 
+        return propertyRepository.save(propertyDao).toUserDto()
+    }
+
+    override fun getById(id: Long): PropertyDto {
+        val property: Optional<PropertyDao> = propertyRepository.findById(id)
+
+        if (property.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Property doesn't exist")
+        }
+
+        return property.get().toUserDto()
+    }
+
+    override fun updateDescription(id: Long, description: String): PropertyDto {
+        val propertyDao = getById(id).toDao()
+        propertyDao.description = description
         return propertyRepository.save(propertyDao).toUserDto()
     }
 

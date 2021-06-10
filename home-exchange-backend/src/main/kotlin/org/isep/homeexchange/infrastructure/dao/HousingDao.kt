@@ -31,13 +31,13 @@ data class HousingDao(
 
 )
 
-fun HousingDao.toUserDto() = HousingDto(
+fun HousingDao.toHousingDto() = HousingDto(
     id,
     title,
     description,
     userId = userId,
     properties = properties.toUserDto(),
-    images = images.toUserDto(),
+    images = images.toImageDto(),
 )
 
-fun List<HousingDao>.toUserDto() = map { it.toUserDto() }
+fun List<HousingDao>.toHousingDto() = map { it.toHousingDto() }
